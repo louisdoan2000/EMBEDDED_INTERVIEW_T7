@@ -1,6 +1,5 @@
 # EMBEDDED_INTERVIEW_T7
 
-
 ## 1. C Basic 
 **1.1 Typedef**
 **1.2 Struct**
@@ -127,9 +126,79 @@ int main(int argc, char const *argv[])
 
 
 ## 4. Variables 
-
+**4.1 Biến Static**
 - Biến static cục bộ: Khi 1 biến cục bộ được khai báo với từ khóa static. Biến sẽ chỉ được khởi tạo 1 lần duy nhất và tồn tại suốt thời gian chạy chương trình. Giá trị của nó không bị mất đi ngay cả khi kết thúc hàm. Tuy nhiên khác với biến toàn cục có thể gọi trong tất cả mọi nơi trong chương trình, thì biến cục bộ static chỉ có thể được gọi trong nội bộ hàm khởi tạo ra nó. Mỗi lần hàm được gọi, giá trị của biến chính bằng giá trị tại lần gần nhất hàm được gọi.
+Ex 1: Khi chưa khai báo biến static
+```c
+void test(){
+    static int a =10;  // giả sử có địa chỉ là 0xc1
+    printf("a = %d\n", a);
+    a++;
+}
+
+int main(int argc, char const *argv[])
+{
+    test(); // nó sẽ được lưu ở phân vùng nhớ đó 
+    test(); // khi chạy lần 2 thì sẽ không khởi tạo lại mà tiếp tục thực hiện tức là a + 1 
+    test(); // tương tự
+
+    return 0;
+}
+```
+Kết quả: 
+10
+10
+10
+
+
+Ex 2: Khi dùng biến static
+```c
+void test(){
+    static int a =10;  // giả sử có địa chỉ là 0xc1
+    printf("a = %d\n", a);
+    a++;
+}
+
+int main(int argc, char const *argv[])
+{
+    test(); // nó sẽ được lưu ở phân vùng nhớ đó 
+    test(); // khi chạy lần 2 thì sẽ không khởi tạo lại mà tiếp tục thực hiện tức là a + 1 
+    test(); // tương tự
+
+    return 0;
+} 
+```
+Kết quả: 
+ 10
+ 11
+ 12
+
+
 - Biến static toàn cục: Biến toàn cục static sẽ chỉ có thể được truy cập và sử dụng trong File khai báo nó, các File khác không có cách nào truy cập được. 
+
+
+
+**4.2 Biến Extern** 
+- Gọi hàm, biến từ một file khác
+- Biến Static cục bộ không lấy được qua extern
+
+VD: Muốn gọi biến a ở file test. sang file main.c, ta thực hiện ở file main.c như sau:
+
+extern a;
+
+Tại Terminal gõ: `gcc main.c test.c` --> `enter`
+Gõ `./main` 
+
+
+
+**4.3 Biến Volatile**
+
+
+
+**4.4 Biến Register**
+- Tác dụng của từ khóa register, nói một cách ngắn gọn là làm tăng hiệu năng(performance) của chương trình.
+
+![Alt text](image-3.png)
 
 ## 5. Struct and Union
 Struct và Union là 2 cấu trúc dữ liệu do lập trình viên định nghĩa bao gồm các biến với kiểu dữ liệu khác nhau.
@@ -226,21 +295,30 @@ int main(int argc, char const *argv[])
 Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
 •	Giai đoàn tiền xử lý (Pre-processor)
 •	Giai đoạn dịch NNBC sang Asembly (Compiler)
-•	Giai đoạn dịch asembly sang ngôn ngữ máy (Asember)
+•	Giai đoạn dịch asembly sang ngôn ngữ máy (Assembler)
 •	Giai đoạn liên kết (Linker)
 
-**6.1 Pre-processor (Giai đoạn tiền xử lý):** Nhận mã nguồn và xóa bỏ các dòng comments, xử lý các chỉ thị tiền xử lý có bắt đầu bằng kí hiệu `#`. Như `#include` (thay thế mã chương trình của một tệp tiêu để vào mã nguồn cần dịch), `#define` (thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình).
+![Alt text](image-2.png)
+
+**6.1 Pre-processor (Giai đoạn tiền xử lý):** 
+
+Nhận mã nguồn và xóa bỏ các dòng comments, xử lý các chỉ thị tiền xử lý có bắt đầu bằng kí hiệu `#`. Như `#include` (thay thế mã chương trình của một tệp tiêu để vào mã nguồn cần dịch), `#define` (thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình).
 	-  Sau khi qua quá trình tiền xử lý thì file code lúc này sẽ có dạng `.i`.
 	-  Dùng lệnh `gcc -E filename.c -o filename.i` hoặc `gcc -E filename.c` để xem code sau khi qua quá trình preprocessor.
-**6.2 Compiler (Giai đoạn dịch NNBC sang ngôn ngữ Assembly ** Kiểm tra các kiểu dữ liệu có lỗi hay không, phân tích cú pháp (syntax) của mã nguồn NNBC và tối ưu code.
+**6.2 Compiler (Giai đoạn dịch NNBC sang ngôn ngữ Assembly**
+
+Kiểm tra các kiểu dữ liệu có lỗi hay không, phân tích cú pháp (syntax) của mã nguồn NNBC và tối ưu code.
 	-  Quá trình này sẽ biên dịch từ code `.i` sang ngôn ngữ assembly `.s`.
 	-  Dùng lệnh `gcc -S -o filename.s filename.c` để có thể xem code sau quá tình compiler.
-**6.3 Assembler (Giai đoạn dịch ngôn ngữ Assembly sang ngôn ngữ máy):** 
-Biên dịch ngôn ngữ Assembly sang ngôn ngữ máy (0 và 1). Và tạo ra tệp tin Object `.o` or `.obj`.
-	-  Dùng lệnh `gcc -c filename.c -o filename.o` để tạo ra file ".o" và dùng lệnh `objdump -d -Mintel filename.o` để xem code.
+**6.3 Assembler (Giai đoạn dịch ngôn ngữ Assembly sang ngôn ngữ máy):**
+
+- Biên dịch ngôn ngữ Assembly sang ngôn ngữ máy (0 và 1). Và tạo ra tệp tin Object `.o` or `.obj`.
+-  Dùng lệnh `gcc -c filename.c -o filename.o` để tạo ra file ".o" và dùng lệnh `objdump -d -Mintel filename.o` để xem code.
+
 **6.4 Linker (Giải đoạn liên kết):** 
 - Trong giai đoạn này mã máy của một chương trình `.o` dịch từ nhiều nguồn (file .c hoặc file thư viện .lib) được liên kết lại với nhau để tạo thành chương trình đích nhất. Mã máy của các hàm thư viện gọi trong chương trình cũng được đưa vào chương trình cuối trong giai đoạn này. Chính vì vậy mà các lỗi liên quan đến việc gọi hàm hay sử dụng biến tổng thể mà không tồn tại sẽ bị phát hiện. Kể cả lỗi viết chương trình chính không có hàm main() cũng được phát hiện trong liên kết.
-	- File sau khi được gộp lại thì sẽ có đuôi mở rộng Executable `.exe`, còn trên Linux và MacOs thì có thể có đuối theo chỉ định hoặc không có đuôi mở rộng.
+
+- File sau khi được gộp lại thì sẽ có đuôi mở rộng Executable `.exe`, còn trên Linux và MacOs thì có thể có đuối theo chỉ định hoặc không có đuôi mở rộng.
 
 - Để chạy file code C trên `terminal` dùng lệnh `gcc -o filename filename.c` đẻ tạo ra tệp thực thi, sau đó dùng lệnh `./filename` để chạy tệp thực thi đó.
 
