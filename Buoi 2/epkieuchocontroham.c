@@ -23,7 +23,6 @@ void *ptr = &tong;
 
 
 
-
 return 0;
 
 }

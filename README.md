@@ -14,6 +14,7 @@
 
 **2.1 Con trỏ**
 - Là một biến mà nó lưu địa chỉ của những biến khác
+
 Ex 1:
 
 ![Alt text](image.png)
@@ -68,7 +69,6 @@ return 0;
 - Con trỏ void là con trỏ đặc biệt, có thể trỏ đến mọi địa chỉ
 - Dùng con trỏ void thì phải ép kiểu
 ```c
-
 int main(int argc, char const *argv[])
 {
     int i = 10;
@@ -87,12 +87,49 @@ int main(int argc, char const *argv[])
 }
 
 ```
-**2.3 Con trỏ hàm**
+**2.3 Function Pointer**
 - Dùng để gọi hàm thông qua con trỏ
-- 
+`kiểu trả về hàm(*tên con trỏ hàm)(kiểu input, kiểu input )`
+Ex:
+```c
+// con trỏ hàm sẽ trỏ đến địa chỉ của hàm
+void tong(int a, int b){
+    printf("tong %d va %d = %d\n", a, b, a+b);
+}
+
+void hieu(int a, int b){
+    printf("hieu %d va %d = %d\n", a, b, a-b);
+}
+
+int tich(int a, int b){
+    return a*b;
+}
+int main(int argc, char const *argv[])
+{
+    void(*ptr)(int,int); 
+    ptr = &tong;
+    ptr(8,7);
+    ptr = &hieu;
+    ptr(10,6);
+    
+    int (*ptrtich)(int,int) = &tich; // Con trỏ ptr trỏ tới hàm tích
+    printf("tich %d\n", ptrtich(6,5));
+    return 0;
+}
+
+```
+**Con trỏ hàm làm input parameter**
+
+
+
 **2.4 Con trỏ NULL**
 - Là con trỏ có địa chỉ và giá trị bằng 0
-- Vì khai báo con trỏ bất kì thò phải có giá trị nếu không thì con trỏ sẽ trỏ tới giá trị rác nên cần khai báo 
+- Vì khai báo con trỏ bất kì thò phải có giá trị nếu không thì con trỏ sẽ trỏ tới giá trị rác
+Ex:
+
+
+**2.5 Pointer to Pointer**
+
 
 ## 3. Memory Allocation
 
@@ -123,12 +160,16 @@ int main(int argc, char const *argv[])
 	- Sẽ được giải phóng khi gọi hàm free,...
 
 
+**Cấp phát động**
+
 
 
 ## 4. Variables 
 **4.1 Biến Static**
 - Biến static cục bộ: Khi 1 biến cục bộ được khai báo với từ khóa static. Biến sẽ chỉ được khởi tạo 1 lần duy nhất và tồn tại suốt thời gian chạy chương trình. Giá trị của nó không bị mất đi ngay cả khi kết thúc hàm. Tuy nhiên khác với biến toàn cục có thể gọi trong tất cả mọi nơi trong chương trình, thì biến cục bộ static chỉ có thể được gọi trong nội bộ hàm khởi tạo ra nó. Mỗi lần hàm được gọi, giá trị của biến chính bằng giá trị tại lần gần nhất hàm được gọi.
-Ex 1: Khi chưa khai báo biến static
+
+
+_Ex 1: Khi chưa khai báo biến static_
 ```c
 void test(){
     static int a =10;  // giả sử có địa chỉ là 0xc1
@@ -151,7 +192,7 @@ Kết quả:
 10
 
 
-Ex 2: Khi dùng biến static
+_Ex 2: Khi dùng biến static_
 ```c
 void test(){
     static int a =10;  // giả sử có địa chỉ là 0xc1
@@ -192,13 +233,47 @@ Gõ `./main`
 
 
 **4.3 Biến Volatile**
-
+```c
+volatile int test; // thông báo cho compiler không được phép tối ưu test
+    while (1)
+    {
+        test = readdataUART(); // khi chạy sẽ bỏ qua bước này
+        A();
+        B();
+        C();
+    }  
+    return 0;
+```
 
 
 **4.4 Biến Register**
 - Tác dụng của từ khóa register, nói một cách ngắn gọn là làm tăng hiệu năng(performance) của chương trình.
 
 ![Alt text](image-3.png)
+
+- Có register thì xử lí nhanh hơn.
+- Hiện nay người ta không còn sủ dụng register nữa vì tốc độ xử lí của RAM đã nhanh hơn tuy nhiên một vài controller còn sử dụng.
+
+Ex:
+```c
+
+int main(int argc, char const *argv[])
+{
+    clock_t start, end;
+    double test;
+    register  i; 
+    start = clock();
+    for (; i < 0xFFFFFFFF; i++);
+    end = clock();
+    test = ((double)(end - start))/CLOCKS_PER_SEC;
+    printf("time: %f\n", test);
+    return 0;
+}
+
+// không có register: time: 7.550000
+// có register        time: 0.951000
+
+``` 
 
 ## 5. Struct and Union
 Struct và Union là 2 cấu trúc dữ liệu do lập trình viên định nghĩa bao gồm các biến với kiểu dữ liệu khác nhau.
@@ -305,7 +380,7 @@ Chương trình được viết bằng C muốn chạy được trên máy tính
 Nhận mã nguồn và xóa bỏ các dòng comments, xử lý các chỉ thị tiền xử lý có bắt đầu bằng kí hiệu `#`. Như `#include` (thay thế mã chương trình của một tệp tiêu để vào mã nguồn cần dịch), `#define` (thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình).
 	-  Sau khi qua quá trình tiền xử lý thì file code lúc này sẽ có dạng `.i`.
 	-  Dùng lệnh `gcc -E filename.c -o filename.i` hoặc `gcc -E filename.c` để xem code sau khi qua quá trình preprocessor.
-**6.2 Compiler (Giai đoạn dịch NNBC sang ngôn ngữ Assembly**
+**6.2 Compiler (Giai đoạn dịch NNBC sang ngôn ngữ Assembly)**
 
 Kiểm tra các kiểu dữ liệu có lỗi hay không, phân tích cú pháp (syntax) của mã nguồn NNBC và tối ưu code.
 	-  Quá trình này sẽ biên dịch từ code `.i` sang ngôn ngữ assembly `.s`.
@@ -345,3 +420,10 @@ Ex:
 
 
 **7.3 __VA_ARGS__**
+
+**Function**
+- Program count: là bộ đếm
+- Stack pointer: lưu bộ nhớ
+- Vào 0x0000 sẽ khởi tạo Program count và Stack pointer
+- Program count sẽ đếm từng địa chỉ và đọc giá trị của từng địa chỉ ra. Thì giá trị đó sẽ làm cho chương trình chạy.
+
