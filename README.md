@@ -156,8 +156,8 @@ struct dulieuhocsinh {
 ```
 
 **5.2 Union**
-Được khai báo và sử dụng như cấu trúc
-Các thành phần của union có chung địa chỉ đầu (nằm chồng lên nhau trong bộ nhớ)
+- Được khai báo và sử dụng như cấu trúc
+- Các thành phần của union có chung địa chỉ đầu (nằm chồng lên nhau trong bộ nhớ)
 
 Cú Pháp
 ```c
@@ -181,15 +181,16 @@ typedef union{
 **5.3 So sánh Struct và union**
 
 Về mặt ý nghĩa, struct và union cơ bản giống nhau(đều là kiểu dữ liệu do người dùng tự định nghĩa). Tuy nhiên, về mặt lưu trữ trong bộ nhớ, chúng có sự khác biệt rõ rệt như sau:
+
 •	**Struct**: Dữ liệu của các thành viên của struct được lưu trữ ở những vùng nhớ khác nhau. Do đó kích thước của 1 struct tối thiểu bằng kích thước các thành viên cộng lại tại vì còn phụ thuộc vào bộ nhớ đệm (struct padding)
+
 •	**Union** : Dữ liệu các thành viên sẽ dùng chung 1 vùng nhớ. Kích thước của union được tính là kích thước lớn nhất của kiểu dữ liệu trong union. Việc thay đổi nội dung của 1 thành viên sẽ dẫn đến thay đổi nội dung của các thành viên khác.
 
 
 **5.4 Ví dụ về truyền data sử dụng union và struct**
 ```c
 typedef union{
-    struct
-    {
+    struct{
         uint8_t id[2];
         uint8_t data[3];
         uint8_t checkSum[1];
@@ -222,5 +223,47 @@ int main(int argc, char const *argv[])
 
 
 ## 6. Compiler 
+Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
+•	Giai đoàn tiền xử lý (Pre-processor)
+•	Giai đoạn dịch NNBC sang Asembly (Compiler)
+•	Giai đoạn dịch asembly sang ngôn ngữ máy (Asember)
+•	Giai đoạn liên kết (Linker)
+
+**6.1 Pre-processor (Giai đoạn tiền xử lý):** Nhận mã nguồn và xóa bỏ các dòng comments, xử lý các chỉ thị tiền xử lý có bắt đầu bằng kí hiệu `#`. Như `#include` (thay thế mã chương trình của một tệp tiêu để vào mã nguồn cần dịch), `#define` (thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình).
+	-  Sau khi qua quá trình tiền xử lý thì file code lúc này sẽ có dạng `.i`.
+	-  Dùng lệnh `gcc -E filename.c -o filename.i` hoặc `gcc -E filename.c` để xem code sau khi qua quá trình preprocessor.
+**6.2 Compiler (Giai đoạn dịch NNBC sang ngôn ngữ Assembly ** Kiểm tra các kiểu dữ liệu có lỗi hay không, phân tích cú pháp (syntax) của mã nguồn NNBC và tối ưu code.
+	-  Quá trình này sẽ biên dịch từ code `.i` sang ngôn ngữ assembly `.s`.
+	-  Dùng lệnh `gcc -S -o filename.s filename.c` để có thể xem code sau quá tình compiler.
+**6.3 Assembler (Giai đoạn dịch ngôn ngữ Assembly sang ngôn ngữ máy):** 
+Biên dịch ngôn ngữ Assembly sang ngôn ngữ máy (0 và 1). Và tạo ra tệp tin Object `.o` or `.obj`.
+	-  Dùng lệnh `gcc -c filename.c -o filename.o` để tạo ra file ".o" và dùng lệnh `objdump -d -Mintel filename.o` để xem code.
+**6.4 Linker (Giải đoạn liên kết):** 
+- Trong giai đoạn này mã máy của một chương trình `.o` dịch từ nhiều nguồn (file .c hoặc file thư viện .lib) được liên kết lại với nhau để tạo thành chương trình đích nhất. Mã máy của các hàm thư viện gọi trong chương trình cũng được đưa vào chương trình cuối trong giai đoạn này. Chính vì vậy mà các lỗi liên quan đến việc gọi hàm hay sử dụng biến tổng thể mà không tồn tại sẽ bị phát hiện. Kể cả lỗi viết chương trình chính không có hàm main() cũng được phát hiện trong liên kết.
+	- File sau khi được gộp lại thì sẽ có đuôi mở rộng Executable `.exe`, còn trên Linux và MacOs thì có thể có đuối theo chỉ định hoặc không có đuôi mở rộng.
+
+- Để chạy file code C trên `terminal` dùng lệnh `gcc -o filename filename.c` đẻ tạo ra tệp thực thi, sau đó dùng lệnh `./filename` để chạy tệp thực thi đó.
+
 
 ## 7. Macro 
+
+ Macro không phải là kiểu dữ liệu mà là một định nghĩa 1 đoạn chương trình nào đó bằng một tên, khi gọi tên chương trình đó thì quá trình tiền xử lí sẽ copy chương trình đó bỏ vào.
+
+**7.1 #ifndef** (if not define)
+Ex:
+
+`
+
+`#ifndef STM32
+#define STM32
+*chương trình*
+
+
+`
+
+**7.2 Tạo chuỗi**
+- Mỗi con chip có những thanh ghi khác nhau, ta định nghĩa cho mỗi con chip vì thế chương trình phía dưới chỉ cần thay đổi
+- Để tạo chuỗi ta dùng #
+
+
+**7.3 __VA_ARGS__**
