@@ -132,6 +132,94 @@ int main(int argc, char const *argv[])
 - Biến static toàn cục: Biến toàn cục static sẽ chỉ có thể được truy cập và sử dụng trong File khai báo nó, các File khác không có cách nào truy cập được. 
 
 ## 5. Struct and Union
+Struct và Union là 2 cấu trúc dữ liệu do lập trình viên định nghĩa bao gồm các biến với kiểu dữ liệu khác nhau.
+
+**5.1 Struct**
+
+Cú Pháp:
+```c
+struct <tên kiểu cấu trúc>
+{
+<kiểu dữ liệu> <tên thành phần 1>;
+… 
+<kiểu dữ liệu> <tên thành phần n>;
+} <tên biến 1>, <tên biến 2>;
+
+```
+Ex: 
+```c
+struct dulieuhocsinh {
+    int tuoi;
+    float chieucao;
+    int namsinh;
+}hocsinh1;
+```
+
+**5.2 Union**
+Được khai báo và sử dụng như cấu trúc
+Các thành phần của union có chung địa chỉ đầu (nằm chồng lên nhau trong bộ nhớ)
+
+Cú Pháp
+```c
+union <tên kiểu cấu trúc>
+{
+<kiểu dữ liệu> <tên thành phần 1>;
+… 
+<kiểu dữ liệu> <tên thành phần n>;
+} <tên biến 1>, <tên biến 2>;
+ ```
+Ex:
+
+```c
+typedef union{
+        uint8_t var1[2];
+        uint8_t var2[3];
+        uint8_t var3[1];   
+}typeunion;
+```
+
+**5.3 So sánh Struct và union**
+
+Về mặt ý nghĩa, struct và union cơ bản giống nhau(đều là kiểu dữ liệu do người dùng tự định nghĩa). Tuy nhiên, về mặt lưu trữ trong bộ nhớ, chúng có sự khác biệt rõ rệt như sau:
+•	**Struct**: Dữ liệu của các thành viên của struct được lưu trữ ở những vùng nhớ khác nhau. Do đó kích thước của 1 struct tối thiểu bằng kích thước các thành viên cộng lại tại vì còn phụ thuộc vào bộ nhớ đệm (struct padding)
+•	**Union** : Dữ liệu các thành viên sẽ dùng chung 1 vùng nhớ. Kích thước của union được tính là kích thước lớn nhất của kiểu dữ liệu trong union. Việc thay đổi nội dung của 1 thành viên sẽ dẫn đến thay đổi nội dung của các thành viên khác.
+
+
+**5.4 Ví dụ về truyền data sử dụng union và struct**
+```c
+typedef union{
+    struct
+    {
+        uint8_t id[2];
+        uint8_t data[3];
+        uint8_t checkSum[1];
+
+
+    }object;
+    uint8_t array[6];
+   
+}dataFrame;
+
+
+int main(int argc, char const *argv[])
+{
+    //Gói data cần phải truyền: 1 byte ID
+    //                          3 byte DATA
+    //                          1 byte CS
+    //                          0x01 0xC2 0xF8
+    dataFrame test;
+    test.object.id[0] = 0x01;
+    test.object.id[1] = 0x02;
+
+    test.object.data[0] = 0xC8;
+    test.object.data[1] = 0xF8;
+    test.object.data[2] = 0xF2;
+
+    test.object.checkSum[0] = 0xA7;
+    return 0;
+}
+```
+
 
 ## 6. Compiler 
 
