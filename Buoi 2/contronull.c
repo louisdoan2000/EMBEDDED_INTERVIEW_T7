@@ -23,6 +23,8 @@ int main(int argc, char const *argv[])
 int *ptr = NULL;
 printf("test: %p\n", ptr);
 
+
+
 return 0;
 
 }

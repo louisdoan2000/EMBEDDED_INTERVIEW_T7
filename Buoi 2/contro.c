@@ -16,6 +16,7 @@ int main(int argc, char const *argv[])
     printf("gia tri ptr %p\n", ptr);
 
     printf("gia tri cua bien ma con tro dang quan li %d ", *ptr);
+    
     return 0;
 }
 

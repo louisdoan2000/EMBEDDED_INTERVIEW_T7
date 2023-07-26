@@ -18,10 +18,15 @@ void tinhtoan(void(*func)(int, int), int a, int b ){
 }
 int main(int argc, char const *argv[])
 {
+//int *ptr // nó sẽ trỏ đến địa chỉ rác, gây ngủy hiểm lúc lập trình
+
+//void *ptr = NULL;
+//printf("size: %lu byte\n", sizeof(ptr));
+
 
 void *ptr= &tong;
-printf("size: %d\n", sizeof(ptr));
-// Kích thước biến con trỏ phụ thuộc vào kiến trúc của vi xử lí
+printf("size: %p\n", ptr);
+// biến con trỏ phụ thuộc vào kiến trúc của vi xử lí
 //64 /8bit = 8 byte
 //32/8 = 4
 
