@@ -118,17 +118,54 @@ int main(int argc, char const *argv[])
 }
 
 ```
-**Con trỏ hàm làm input parameter**
+**2.3.1 Con trỏ hàm làm input parameter**
 
+```c
+// con trỏ hàm sẽ trỏ đến địa chỉ của hàm
+//input là 1 hàm dùng 1 con trỏ hàm
+// cú pháp: void tenham(void(*tencontro)(kieu dau vao, kieu dau vao), tham so dau vao, tham so dau vao)
+void tinhtoan(void(*func)(int, int), int a, int b ){
+    printf("Tinh toan\n");
+    func(a,b);
+}
+int main(int argc, char const *argv[])
+{
+  tinhtoan(&tong, 4, 9);   
+  tinhtoan(&hieu, 8, 2);
+  tinhtoan(&tich, 2, 6);
+    return 0;
+}
+
+```
+**2.3.2 Dùng con trỏ void trỏ đến địa chỉ của con trỏ hàm để hiển thị**
+```c
+void *ptr = &tong;
+((void(*)(int,int))ptr)(7,5);
+
+```
 
 
 **2.4 Con trỏ NULL**
 - Là con trỏ có địa chỉ và giá trị bằng 0
 - Vì khai báo con trỏ bất kì thò phải có giá trị nếu không thì con trỏ sẽ trỏ tới giá trị rác
 Ex:
+```
+```
 
 
 **2.5 Pointer to Pointer**
+- **Pointer to pointer** là một loại con trỏ dùng để lưu trữ địa chỉ của biến con trỏ.
+
+VD: 
+- ina = 10// 0xc1       
+//giá trị 10, địa chỉ 0xc1
+ int*ptr = 0xc1; //0xa5
+ //giá trị 0xc1, địa chỉ 0xa5
+
+
+- int**ptr ( giá trị của biến trỏ ) = &ptr= 0xa5
+ *(0xa5)= 0xc1 --> **(0xa5)= 10
+
 
 
 ## 3. Memory Allocation
@@ -161,8 +198,25 @@ Ex:
 
 
 **Cấp phát động**
+- khai báo 1 mảng mà chưa rõ phải sử dụng kích thước là bao nhiêu --> cấp phát động
+- Cấp phát động bộ nhớ chính là việc cấp phát/giải phóng, thay đổi kích thước bộ nhớ một cách linh hoạt. Giúp chúng ta điều khiển được việc sử dụng bộ nhớ của chương trình.
 
-
+- **Malloc:**  
+Ex: tạo 5 ô nhớ cho kiểu uint16
+```c
+ C1:   uint16_t *ptr = (uint16_t *)malloc(2*5)
+ C2:   uint16_t *ptr2 = (uint16_t *)malloc(sizeof(uint16_t)*5);
+```
+- **Realloc:**
+Ex: thay đổi size lên 7 ô nhớ
+```c
+    ptr2 = (uint16_t *)realloc(ptr2, sizeof(uint16_t)*7);
+```
+- **Free:** 
+Ex:
+```c
+ free(ptr); // Thu hồi vùng nhớ
+```
 
 ## 4. Variables 
 **4.1 Biến Static**
@@ -398,11 +452,11 @@ Kiểm tra các kiểu dữ liệu có lỗi hay không, phân tích cú pháp (
 - Để chạy file code C trên `terminal` dùng lệnh `gcc -o filename filename.c` đẻ tạo ra tệp thực thi, sau đó dùng lệnh `./filename` để chạy tệp thực thi đó.
 
 
-## 7. Macro 
-
+## 7. Macro and Function
+**7.1 Macro**
  Macro không phải là kiểu dữ liệu mà là một định nghĩa 1 đoạn chương trình nào đó bằng một tên, khi gọi tên chương trình đó thì quá trình tiền xử lí sẽ copy chương trình đó bỏ vào.
 
-**7.1 #ifndef** (if not define)
+**7.1.1 #ifndef** (if not define)
 Ex:
 
 `
@@ -414,14 +468,14 @@ Ex:
 
 `
 
-**7.2 Tạo chuỗi**
+**7.1.2 Tạo chuỗi**
 - Mỗi con chip có những thanh ghi khác nhau, ta định nghĩa cho mỗi con chip vì thế chương trình phía dưới chỉ cần thay đổi
 - Để tạo chuỗi ta dùng #
 
 
-**7.3 __VA_ARGS__**
+**7.1.3 __VA_ARGS__**
 
-**Function**
+**7.2 Function**
 - Program count: là bộ đếm
 - Stack pointer: lưu bộ nhớ
 - Vào 0x0000 sẽ khởi tạo Program count và Stack pointer
