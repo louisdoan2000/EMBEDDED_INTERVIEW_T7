@@ -434,6 +434,8 @@ Chương trình được viết bằng C muốn chạy được trên máy tính
 Nhận mã nguồn và xóa bỏ các dòng comments, xử lý các chỉ thị tiền xử lý có bắt đầu bằng kí hiệu `#`. Như `#include` (thay thế mã chương trình của một tệp tiêu để vào mã nguồn cần dịch), `#define` (thay thế bằng giá trị cụ thể tại mỗi nơi sử dụng trong chương trình).
 	-  Sau khi qua quá trình tiền xử lý thì file code lúc này sẽ có dạng `.i`.
 	-  Dùng lệnh `gcc -E filename.c -o filename.i` hoặc `gcc -E filename.c` để xem code sau khi qua quá trình preprocessor.
+
+
 **6.2 Compiler (Giai đoạn dịch NNBC sang ngôn ngữ Assembly)**
 
 Kiểm tra các kiểu dữ liệu có lỗi hay không, phân tích cú pháp (syntax) của mã nguồn NNBC và tối ưu code.
