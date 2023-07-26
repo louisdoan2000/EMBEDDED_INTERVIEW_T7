@@ -439,6 +439,7 @@ Nhận mã nguồn và xóa bỏ các dòng comments, xử lý các chỉ thị 
 Kiểm tra các kiểu dữ liệu có lỗi hay không, phân tích cú pháp (syntax) của mã nguồn NNBC và tối ưu code.
 	-  Quá trình này sẽ biên dịch từ code `.i` sang ngôn ngữ assembly `.s`.
 	-  Dùng lệnh `gcc -S -o filename.s filename.c` để có thể xem code sau quá tình compiler.
+ 
 **6.3 Assembler (Giai đoạn dịch ngôn ngữ Assembly sang ngôn ngữ máy):**
 
 - Biên dịch ngôn ngữ Assembly sang ngôn ngữ máy (0 và 1). Và tạo ra tệp tin Object `.o` or `.obj`.
