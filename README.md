@@ -160,7 +160,7 @@ VD:
 - ina = 10// 0xc1       
 //giá trị 10, địa chỉ 0xc1
  int*ptr = 0xc1; //0xa5
- //giá trị 0xc1, địa chỉ 0xa5
+ //giá trị 0xc1, địa chỉ 0xa5``
 
 
 - int**ptr ( giá trị của biến trỏ ) = &ptr= 0xa5
