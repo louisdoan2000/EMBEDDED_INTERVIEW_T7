@@ -88,6 +88,7 @@ int main(int argc, char const *argv[])
 
 ```
 **2.3 Function Pointer**
+- Trỏ đến địa chỉ của hàm
 - Dùng để gọi hàm thông qua con trỏ
 `kiểu trả về hàm(*tên con trỏ hàm)(kiểu input, kiểu input )`
 Ex:
@@ -159,7 +160,7 @@ Ex:
 VD: 
 - ina = 10// 0xc1       
 //giá trị 10, địa chỉ 0xc1
- int*ptr = 0xc1; //0xa5
+ int*ptr = &a // 0xc1; 0xa5
  //giá trị 0xc1, địa chỉ 0xa5``
 
 
@@ -303,7 +304,7 @@ volatile int test; // thông báo cho compiler không được phép tối ưu t
 **4.4 Biến Register**
 - Tác dụng của từ khóa register, nói một cách ngắn gọn là làm tăng hiệu năng(performance) của chương trình.
 
-![Alt text](image-3.png)
+![Alt text](image-5.png)
 
 - Có register thì xử lí nhanh hơn.
 - Hiện nay người ta không còn sủ dụng register nữa vì tốc độ xử lí của RAM đã nhanh hơn tuy nhiên một vài controller còn sử dụng.
@@ -427,7 +428,7 @@ Chương trình được viết bằng C muốn chạy được trên máy tính
 •	Giai đoạn dịch asembly sang ngôn ngữ máy (Assembler)
 •	Giai đoạn liên kết (Linker)
 
-![Alt text](image-2.png)
+![Alt text](image-4.png)
 
 **6.1 Pre-processor (Giai đoạn tiền xử lý):** 
 
