@@ -481,7 +481,7 @@ Ex:
 
 **7.2 Function**
 - Function là một khối lệnh thực hiện chức năng nào đó.
-- Program count: là bộ đếm
+- Program counter: là bộ đếm
 - Stack pointer: lưu bộ nhớ
 - Vào 0x0000 sẽ khởi tạo Program count và Stack pointer
 - Program count sẽ đếm từng địa chỉ và đọc giá trị của từng địa chỉ ra. Thì giá trị đó sẽ làm cho chương trình chạy.
@@ -490,6 +490,6 @@ Ex:
 | |Macro  | Function |
 |-|-      |-         |-                |
 | **Được xử lí ở**| Preprocessor | Compiler|
-|**Tóm tắt quá trình thực hiện** |  |  |
+|**Tóm tắt quá trình thực hiện** | Thay thế đoạn code macro vào chỗ được gọi trước khi được biên dịch | 	Khi thấy hàm được gọi, compiler sẽ phải lưu con trỏ chương trình PC (Program Counter) hiện tại vào stack(stack counter); chuyển PC tới hàm được gọi, thực hiện hàm đó xong và lấy kết quả trả về; sau đó quay lại vị trí ban đầu trong stack trước khi gọi hàm và tiếp tục thực hiện chương trình. |
 | **Kích thước**|  lớn| nhỏ |
 |**Tốc độ** |nhanh  | chậm |
