@@ -487,6 +487,8 @@ Ex:
 - Program count sẽ đếm từng địa chỉ và đọc giá trị của từng địa chỉ ra. Thì giá trị đó sẽ làm cho chương trình chạy.
 
 **7.3 So sánh Macro và Function**
+
+
 | |Macro  | Function |
 |-|-      |-         |-                |
 | **Được xử lí ở**| Preprocessor | Compiler|
