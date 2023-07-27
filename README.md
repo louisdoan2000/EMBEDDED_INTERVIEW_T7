@@ -480,8 +480,16 @@ Ex:
 **7.1.3 __VA_ARGS__**
 
 **7.2 Function**
+- Function là một khối lệnh thực hiện chức năng nào đó.
 - Program count: là bộ đếm
 - Stack pointer: lưu bộ nhớ
 - Vào 0x0000 sẽ khởi tạo Program count và Stack pointer
 - Program count sẽ đếm từng địa chỉ và đọc giá trị của từng địa chỉ ra. Thì giá trị đó sẽ làm cho chương trình chạy.
 
+**7.3 So sánh Macro và Function**
+| |Macro  | Function |
+|-|-      |-         |-                |
+| **Được xử lí ở**| Preprocessor | Compiler|
+|**Tóm tắt quá trình thực hiện** |  |  |
+| **Kích thước**|  lớn| nhỏ |
+|**Tốc độ** |nhanh  | chậm |
