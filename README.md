@@ -276,7 +276,7 @@ Kết quả:
 
 **4.2 Biến Extern** 
 - Gọi hàm, biến từ một file khác
-- Biến Static cục bộ không lấy được qua extern
+- Biến Static toàn cục không lấy được qua extern
 
 VD: Muốn gọi biến a ở file test. sang file main.c, ta thực hiện ở file main.c như sau:
 
@@ -423,9 +423,14 @@ int main(int argc, char const *argv[])
 
 ## 6. Compiler 
 Chương trình được viết bằng C muốn chạy được trên máy tính phải trải qua một quá trình biên dịch để chuyển đổi từ dạng mã nguồn sang chương trình dạng mã thực thi. Quá trình được chia ra làm 4 giai đoạn chính:
+
+
 •	Giai đoàn tiền xử lý (Pre-processor)
+
 •	Giai đoạn dịch NNBC sang Asembly (Compiler)
+
 •	Giai đoạn dịch asembly sang ngôn ngữ máy (Assembler)
+
 •	Giai đoạn liên kết (Linker)
 
 ![Alt text](image-4.png)
@@ -487,6 +492,7 @@ Ex:
 - Program count sẽ đếm từng địa chỉ và đọc giá trị của từng địa chỉ ra. Thì giá trị đó sẽ làm cho chương trình chạy.
 
 **7.3 So sánh Macro và Function**
+
 
 
  | |Macro  | Function |
