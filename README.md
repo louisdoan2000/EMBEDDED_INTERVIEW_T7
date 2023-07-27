@@ -490,7 +490,7 @@ Ex:
 
 
  | |Macro  | Function |
- |-|-      |-         |-                |
+ |-|-------|----------|
  | **Được xử lí ở**| Preprocessor | Compiler|
 |**Tóm tắt quá trình thực hiện** | Thay thế đoạn code macro vào chỗ được gọi trước khi được biên dịch | 	Khi thấy hàm được gọi, compiler sẽ phải lưu con trỏ chương trình PC (Program Counter) hiện tại vào stack(stack counter); chuyển PC tới hàm được gọi, thực hiện hàm đó xong và lấy kết quả trả về; sau đó quay lại vị trí ban đầu trong stack trước khi gọi hàm và tiếp tục thực hiện chương trình. |
 | **Kích thước**|  lớn| nhỏ |
