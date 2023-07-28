@@ -1,19 +1,27 @@
 # EMBEDDED_INTERVIEW_T7
 
 ## 1. C Basic 
+
 **1.1 Typedef**
+
 **1.2 Struct**
+
 **1.3 For**
+
 **1.4 While**
+
 **1.5 Do**
+
 **1.6 If Else**
+
 **1.7 Switch case**
+
 
 
 ## 2. Pointer
 
 **2.1 Con trỏ**
-- Là một biến mà nó lưu địa chỉ của những biến khác
+- Là một biến mà nó lưu địa chỉ của biến khác
 
 Ex 1:
 
@@ -487,9 +495,11 @@ Ex:
 **7.2 Function**
 - Function là một khối lệnh thực hiện chức năng nào đó.
 - Program counter: là bộ đếm
-- Stack pointer: lưu bộ nhớ
+- Stack pointer: lưu bộ nhớ, 
 - Vào 0x0000 sẽ khởi tạo Program count và Stack pointer
 - Program count sẽ đếm từng địa chỉ và đọc giá trị của từng địa chỉ ra. Thì giá trị đó sẽ làm cho chương trình chạy.
+
+lưu thằng tiếp theo vào stack pointer 
 
 **7.3 So sánh Macro và Function**
 
@@ -499,5 +509,18 @@ Ex:
  |-|-------|----------|
  | **Được xử lí ở**| Preprocessor | Compiler|
 |**Tóm tắt quá trình thực hiện** | Thay thế đoạn code macro vào chỗ được gọi trước khi được biên dịch | 	Khi thấy hàm được gọi, compiler sẽ phải lưu con trỏ chương trình PC (Program Counter) hiện tại vào stack(stack counter); chuyển PC tới hàm được gọi, thực hiện hàm đó xong và lấy kết quả trả về; sau đó quay lại vị trí ban đầu trong stack trước khi gọi hàm và tiếp tục thực hiện chương trình. |
-| **Kích thước**|  lớn| nhỏ |
+| **Kích thước**|  lớn file main.i sẽ dài hơn| file sẽ nhiều hơn assembly nhỏ | 
 |**Tốc độ** |nhanh  | chậm |
+
+file main.i
+
+tốn ram hơn
+
+## 8.REview C
+8.1
+
+8.2
+
+8.3
+
+8.4
