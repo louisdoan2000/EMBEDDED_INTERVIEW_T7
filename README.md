@@ -23,14 +23,14 @@
 **2.1 Con trỏ**
 - Là một biến mà nó lưu địa chỉ của biến khác
 
-Ex 1:
+E.g : 
 
 ![Alt text](image.png)
 
 - Biến number có giá trị là 50, địa chỉ là fff4
 - Trong đó p là biến con trỏ trỏ đến địa chỉ fff4 của biến number
 
-Ex 2:
+E.g : 
 ```c
 #include <stdio.h>
 
@@ -232,7 +232,7 @@ Ex:
 - Biến static cục bộ: Khi 1 biến cục bộ được khai báo với từ khóa static. Biến sẽ chỉ được khởi tạo 1 lần duy nhất và tồn tại suốt thời gian chạy chương trình. Giá trị của nó không bị mất đi ngay cả khi kết thúc hàm. Tuy nhiên khác với biến toàn cục có thể gọi trong tất cả mọi nơi trong chương trình, thì biến cục bộ static chỉ có thể được gọi trong nội bộ hàm khởi tạo ra nó. Mỗi lần hàm được gọi, giá trị của biến chính bằng giá trị tại lần gần nhất hàm được gọi.
 
 
-_Ex 1: Khi chưa khai báo biến static_
+_E.g :  Khi chưa khai báo biến static_
 ```c
 void test(){
     static int a =10;  // giả sử có địa chỉ là 0xc1
@@ -255,7 +255,7 @@ Kết quả:
 10
 
 
-_Ex 2: Khi dùng biến static_
+_E.g :  Khi dùng biến static_
 ```c
 void test(){
     static int a =10;  // giả sử có địa chỉ là 0xc1
@@ -516,8 +516,8 @@ file main.i
 
 tốn ram hơn
 
-## 8.REview C
-8.1
+## 8.REVIEW C
+8.1 
 
 8.2
 
