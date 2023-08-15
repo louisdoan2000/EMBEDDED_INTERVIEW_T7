@@ -516,11 +516,38 @@ file main.i
 
 tốn ram hơn
 
-## 8.REVIEW C
-8.1 
+## 8.REVIEW C - Interview Question 
+1. Khác nhau giữa Macro và Function? Kích thước lớn là cái gì lớn? RAM_file.i_file.s_file.o_file.exe
 
-8.2
 
-8.3
 
-8.4
+2. Có bao nhiêu phân vùng nhớ? Liệt kê và nêu rõ?
+
+3. Khác nhau giữa Stack và Heap?
+
+4. Không giải phóng vùng nhớ bằng Free thì chương trình sẽ như thế nào? Nếu shut down máy thì sẽ hết tình trạng đó không?
+- Có vì phần vùng nhớ nằm trong RAM, mà RAM thì sẽ bị reset khi tắt nguồn.
+
+5. Biến Static toàn cục và Static cục bộ?
+
+6. typedef struct{
+	int x;
+	int y;
+}Points; 
+Points nằm ở phân vùng nào? 
+
+- Không ở phân vùng nào cả (nếu không sử dụng Points)
+Nằm ở phân vùng text (Nếu có sử dụng Points)
+	Vì nếu k sử dụng Points thì quá trình Compiler sẽ bỏ đi khai báo của Points
+	Nếu có sử dụng Points thì quá trình Compiler sẽ để lại khai báo của Points
+7. Struct và Union?
+
+8. Con trỏ là gì?
+9. Liệt kê các loại con trỏ và nêu rõ từng loại?
+
+11. Quá trình compiler diễn ra như nào?
+	
+
+## Additional Knowledge
+
+
