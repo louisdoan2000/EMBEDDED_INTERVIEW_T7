@@ -1,0 +1,1 @@
+ // SinhVien sv = {name, tuoi, gioitinh, 8, 9, 4};
