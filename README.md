@@ -570,6 +570,9 @@ Access modifier là phạm vi truy cập của các thuộc tính và phương t
 - **Private**: Được sử dụng khi bạn muốn chặn User truy cập vào những member khai báo trong phạm vi này, giới hạn truy cập và sửa đổi giá trị của chúng. Sử dụng các member trong Public để truy cập đến các member trong Private.
 - **Protected**: Tương tự như Private, nhưng Private thì các class con không thể kết thừa được các member trong Private của class chính, còn Protected thì lại cho phép các class con có thể kế thừa được các member trong protected của class chính.
 **1.2 Constructor**
+- Constructor hay hàm dựng là một hàm đặc biệt.
+- Constructor là một hàm sẽ có tên trùng với tên của class.
+- Sẽ được gọi chạy đầu tiên ngay khi chúng ta khởi tạo một object.
 
 **1.3 Destructor**
 
@@ -587,5 +590,19 @@ Tính đa hình trong lập trình hướng đối tượng là một khả năn
 
 **2.4 Encapsulation (Tính đóng gói)**
 Tính đóng gói trong lập trình hướng đối tượng có ý nghĩa không cho phép người sử dụng các đối tượng thay đổi trạng thái nội tại của một đối tượng, mà chỉ có phương thức nội tại của đối tượng có thể thay đổi chính nó. Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu. Ví dụ đơn giản, khi bạn dùng một cái iphone, bạn không thể thay đổi các cấu trúc bên trong của hệ điều hành iOS, mà chỉ có Apple mới có thể làm được điều này thôi.
+
+### 3.Vector
+- Vector là một cấu trúc dữ liệu trong C++ dùng để chứa các đối tượng khác. Tương tự như mảng (array), vector cũng có thể chứa nhiều phần tử.
+- Tuy nhiên, nếu như số lượng phần tử (size) của một mảng là cố định, thì ở vector, nó hoàn toàn có thể thay đổi trong suốt quá trình làm việc của chương trình
+- vector khác mảng thông thường là kích thước của vector có thể thay đổi trong quá trình thực thi chương trình. Khi cần, vector có thể mở rộng (tăng kích thước) hoặc thu hẹp (giảm kích thước) để chứa thêm hoặc loại bỏ các phần tử.
+- Sử dụng thư viện `#include<vector>`.
+### 
+
+### 4. TEMPLATE
+
+
+### 5. NAMESPACE
+
+### 6. VIRTUAL FUNCTION
 
 
