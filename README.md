@@ -591,18 +591,179 @@ Tính đa hình trong lập trình hướng đối tượng là một khả năn
 **2.4 Encapsulation (Tính đóng gói)**
 Tính đóng gói trong lập trình hướng đối tượng có ý nghĩa không cho phép người sử dụng các đối tượng thay đổi trạng thái nội tại của một đối tượng, mà chỉ có phương thức nội tại của đối tượng có thể thay đổi chính nó. Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu. Ví dụ đơn giản, khi bạn dùng một cái iphone, bạn không thể thay đổi các cấu trúc bên trong của hệ điều hành iOS, mà chỉ có Apple mới có thể làm được điều này thôi.
 
+**SUMMMARY**
+- Tính đa hình: là cùng một phương thức với các input khác nhau thì sẽ cho ra các kết quả khác nhau. Trong một Class thì những method có thể trùng tên nhau nhưng phải khác input parameter.
+
+E.g: Cách di chuyển. Khi input là người thì cách di chuyển là hai chân, input là mèo thì cách di chuyển là bốn chân, input là cá thì cách di chuyển là đuôi. Hoặc ví dụ về loại nhạc cụ.
+
+- Tính trừu tượng: là một khả năng mà chương trình có thể bỏ qua sự phức tạp bằng cách tập trung vào cốt lõi của thông tin cần xử lý.
+E.g: Như máy giặc ta chỉ cần bỏ đồ vào và bấm nút còn bên trong máy giặc, giặc như thế nào ta không cần quan tâm.
+
+- Tính đóng gói: Các thuộc tính phải được nằm trong private để gán giá trị cho nó hoặc lấy giá trị của nó ra thì phải thông qua. Ý nghĩa là tránh cho người dùng cang thiệp vào và sửa đổi dữ liệu.
+
+
 ### 3.Vector
 - Vector là một cấu trúc dữ liệu trong C++ dùng để chứa các đối tượng khác. Tương tự như mảng (array), vector cũng có thể chứa nhiều phần tử.
 - Tuy nhiên, nếu như số lượng phần tử (size) của một mảng là cố định, thì ở vector, nó hoàn toàn có thể thay đổi trong suốt quá trình làm việc của chương trình
 - vector khác mảng thông thường là kích thước của vector có thể thay đổi trong quá trình thực thi chương trình. Khi cần, vector có thể mở rộng (tăng kích thước) hoặc thu hẹp (giảm kích thước) để chứa thêm hoặc loại bỏ các phần tử.
-- Sử dụng thư viện `#include<vector>`.
-### 
+- Trước khi sử dụng thư viện `#include<vector>`.
+
+- So sánh với mảng tĩnh, vector tiêu thụ bộ nhớ hơn để đổi lấy khả năng quản lý lưu trữ và tăng kích thước động một cách hiệu quả.
+**Modifier**
+
+- ***push_back():*** Hàm đẩy một phần tử vào vị trí sau cùng của vector. Nếu kiểu của đối tượng được truyền dưới dạng tham số trong push_back() không giống với kiểu của vector thì sẽ bị ném ra. VD: ten-vector.push_back(ten-cua-phan-tu);
+	- ***assign():*** Nó gán một giá trị mới cho các phần tử vector bằng cách thay thế các giá trị cũ. VD: ten-vector.assign(int size, int value);
+	- ***pop_back():*** Hàm pop_back () được sử dụng để xóa đi phần tử cuối cùng một vector.
+	- ***insert():*** Hàm này chèn các phần tử mới vào trước phần tử trước vị trí được trỏ bởi vòng lặp. Chúng ta cũng có thể chuyển một số đối số thứ ba, đếm số lần phần tử được chèn vào trước vị trí được trỏ.
+   	- ***erase():*** Hàm được sử dụng để xóa các phần tử tùy theo vị trí vùng chứa
+	- ***emplace():*** Nó mở rộng vùng chứa bằng cách chèn phần tử mới vào
+	- ***emplace_back():*** Nó được sử dụng để chèn một phần tử mới vào vùng chứa vector, phần tử mới sẽ được thêm vào cuối vector
+	- ***swap():*** Hàm được sử dụng để hoán đổi nội dung của một vector này với một vector khác cùng kiểu. Kích thước có thể khác nhau.
+	- ***clear():*** Hàm được sử dụng để loại bỏ tất cả các phần tử của vùng chứa vector.
+
+```c++
+	//dùng thư viện vector giống cấp phát bộ nhớ động trong c, nhưng có thư viện hỗ trợ các công cụ nhanh hơn.
+	#include <vector>
+	
+	vector<int> array;	// khai báo mảng kiểu int
+	array.push_back(4);  //thêm phần tử tại 0 là 4
+	array.push_back(8);  //thêm phần tử tại 1 là 8
+	array.push_back(20);
+	array.push_back(15); //thêm phần tử tại 4 là 15
+	
+	//từ C++ 11 trở đi có for cải :
+	for(int item : array){ // có thể dùng biến auto item, biến auto sẽ tự định nghĩa item thuộc kiểu dữ liệu gì tùy vào giá trị và nó được lưu
+		printf("i = %d\n",item);
+	}
+	
+	array.pop_back(); //xóa phần tử cuối cùng, xóa 15
+	array.insert(array.begin()+2,77); //chèn phần tử tại 2 là 77, các phần tử phía sau sẽ dời vị trí cho nhau.
+	array.erase(array.begin()+2); // xóa phần tử thứ 2, dời những phần tử phía sau lên.
+	array.clear(); //thu hồi vùng nhớ giống free
+	
+	for(int i =0;i<array;i++){
+		printf("%d\n",array[i]);
+	}
+	```
 
 ### 4. TEMPLATE
 
+- **Template (khuôn mẫu)** là một từ khóa trong C++, và là một kiểu dữ liệu trừu tượng tổng quát hóa cho các kiểu dữ liệu int, float, double, bool...
+- **Template** trong C++ có 2 loại đó là function template & class template.
+- **Template** giúp người lập trình định nghĩa tổng quát cho hàm và lớp thay vì phải nạp chồng (overloading) cho từng hàm hay phương thức với những kiểu dữ liệu khác nhau.
+
+- **Summary:** Là 1 tính chất của tính đa hình. Những chương trình, hàm có tính đa hình gần giống nhau, người ta sử dụng tính đa hình để biểu diễn. 
+
+E.g
+```c
+#include <iostream>
+
+template <typename var1, typename var2>
+
+var1 tong(var1 a,var2 b){
+    return var1(a+b);
+}
+
+int main(){
+    printf("tong a va b:%d\n",tong(4,5));
+// 4 là int=> var 1 là int , 5 là int => var2 là int
+    printf("tong a va b: %f\n",tong(4.3,5));
+
+//4.3 var 1 là double, var 2 là int . ép kiểu cho var 1 theo double
+
+    return 0;
+}
+```
 
 ### 5. NAMESPACE
+- **Namespace** là từ khóa trong C++ được sử dụng để định nghĩa một phạm vi nhằm mục đích phân biệt các hàm, lớp, biến, ... cùng tên trong các thư viện khác nhau
 
 ### 6. VIRTUAL FUNCTION
+- **Hàm ảo (virtual function)** là một hàm thành viên trong lớp cơ sở mà lớp dẫn xuất khi kế thừa cần phải định nghĩa lại.
+- **Hàm ảo** được sử dụng trong lớp cơ sở khi cần đảm bảo hàm ảo đó sẽ được định nghĩa lại trong lớp dẫn xuất. Việc này rất cần thiết trong trường hợp con trỏ có kiểu là lớp cơ sở trỏ đến đối tượng của lớp dẫn xuất.
+- **Hàm ảo** là một phần không thể thiếu để thể hiện tính đa hình trong kế thừa được hỗ trợ bởi nguồn ngữ C++.
+**Lưu ý:** Con trỏ của lớp cơ sở có thể chứa địa chỉ của đối tượng thuộc lớp dẫn xuất, nhưng ngược lại thì không được.
+- **Hàm ảo** chỉ khác hàm thành phần thông thường khi được gọi từ một con trỏ. Sử dụng hàm ảo khi muốn con trỏ đang trỏ tới đối tượng của lớp nào thì hàm thành phần của lớp đó sẽ được gọi mà không xem xét đến kiểu của con trỏ.
+
+**Sum:** Khi thiết kế chương trình nếu cho phép class con load lại cái mới nhất thì ta sử dụng virtual function
+
+### 7. LINKED LIST
+ **Danh sách liên kết đơn (Single Linked List)** là một cấu trúc dữ liệu động, nó là một danh sách mà mỗi phần tử đều liên kết với phần tử đúng sau nó trong danh sách. Mỗi phần tử (được gọi là một node hay nút) trong danh sách liên kết đơn là một cấu trúc có hai thành phần:
+
++ Thành phần dữ liệu: lưu thông tin về bản thân phần tử đó.
++ Thành phần liên kết: lưu địa chỉ phần tử đứng sau trong danh sách, nếu phần tử đó là phần tử cuối cùng thì thành phần này bằng NULL.
+
+![Alt text](image-1.png)
+![Alt text](<Untitled Diagram_node.png>)  
 
 
+### 8. LIST
+ **List** là một danh sách chứa các đối tượng (các nút (node) – lưu trữ các thông tin dữ liệu và địa chỉ của nút kế tiếp, nút trước đó) liên kết với nhau và cho phép chèn thêm hay xóa bất kì một đối tượng nào trong danh sách.
+```c
+#include <iostream>
+#include <list>
+
+
+using namespace std;
+
+int test[] = {1, 3, 5, 7, 9};
+
+int main(int argc, char const *argv[])
+{
+    list<int> array =  {1, 2, 3, 4, 5, 6};
+    list<int>::iterator it = array.begin();
+
+    advance(it, 2); // Dịch con trỏ tới vị trí 3
+    array.insert(it, 10); // chèn 10 vào vị trí 3
+
+    for(int i : array){
+        cout<<"i = "<<i <<endl;
+    }
+    //Hoặc thông qua iterator
+    for (list<int>::iterator it = array.begin(); it != array.end(); it++) //it sẽ dịch địa chỉ qua ô    
+    {
+       cout<<" i = "<<*it<<endl;
+    }
+    
+    //Đối với list thì phải dùng các này. Chứ không thể dùng vòng for như bình thường( i<array.size())
+    // Vector giống như malloc, realloc khác với List là kiểu linked list
+
+    array.begin();
+    test[1];
+    return 0;
+}
+
+```
+
+### 9. MAP
+
+- Cấu trúc dữ liệu kiểu map là một cấu trúc dữ liệu ánh xạ giữa cái gọi là khoá (key) sang giá trị của khoá đó (gọi là value)
+
+- Trong cấu trúc dữ liệu này, mỗi một key sẽ nhận một giá trị khác nhau.
+
+![Alt text](image-3.png)
+
+```c
+
+
+
+```
+
+**SO SÁNH VECTOR, LIST VÀ MAP**
+
+|            | Vector                   | List                        | Map                            |
+|------------|--------------------------|-----------------------------|--------------------------------|
+| Ad    | - Truy cập ngẫu nhiên các phần tử thông qua index. <br> - Được triển khai dưới dạng địa chỉ liên tiếp trong bộ nhớ. <br> - Hỗ trợ thay đổi kích thước dễ dàng. | - Chèn và xóa phần tử ở bất kỳ vị trí nào dễ dàng hơn. <br> - Không cần dùng thêm bộ nhớ liền kề để mở rộng kích thước. <br> - Linh hoạt trong việc chèn, xóa và truy xuất. | - Lưu trữ các cặp key-value và tự động sắp xếp theo key. <br> - Truy cập hiệu quả thông qua key. <br> - Hỗ trợ các phương thức cho việc chèn, xóa và truy xuất. |
+| Disad | - Chèn và xóa phần tử ở vị trí không phải cuối cùng thì phức tạp hơn. <br> - Cần dùng thêm bộ nhớ liền kề để mở rộng kích thước. <br> - Không hiệu quả cho chèn và xóa phần tử ở đầu hoặc giữa vector. | - Truy cập ngẫu nhiên chậm hơn so với vector. <br> - Chiếm nhiều bộ nhớ hơn do lưu trữ các con trỏ liên kết. | - Tốn nhiều bộ nhớ hơn do lưu trữ các key-value pairs và con trỏ liên kết. <br> - Thời gian tìm kiếm và truy xuất có phức tạp. <br> - Không hỗ trợ truy cập ngẫu nhiên theo index. |
+
+
+### 10. LAMDA
+
+ - Sử dụng mà không cần biết trước, khi nào sủ dụng thì dùng đến luôn
+ - Hàm bình thường thì viết toàn cục. Còn lambda viết cục bộ 
+**Expression**:
+
+*[ capture clause ] (parameters) -> return-type  
+{   
+   definition of method   
+}*
