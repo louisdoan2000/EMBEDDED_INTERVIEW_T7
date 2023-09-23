@@ -785,9 +785,9 @@ int main(int argc, char const *argv[])
 
 
 ### 2. UART
+**3.1 Introduction**
 
-
-
+**How I2C wworks**
 
 ### 3. I2C
 **3.1 Introduction**
@@ -801,7 +801,7 @@ int main(int argc, char const *argv[])
 
 ![Alt text](image-8.png)
 
- Về chế độ truyền của I2C thì nó sẽ truyền theo các Messge.
+ Về chế độ truyền của I2C thì nó sẽ truyền theo các Messages.
 
 - Đầu tiên nó sẽ gửi Start bit, **Start bit** này là **SDA** sẽ kéo mức điện áp từ mức cao xuống mức thấp trước khi **SCL** sẽ kéo từ mức cao xuống mức thấp.
 
