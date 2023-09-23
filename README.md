@@ -757,7 +757,7 @@ int main(int argc, char const *argv[])
 | Disad | - Chèn và xóa phần tử ở vị trí không phải cuối cùng thì phức tạp hơn. <br> - Cần dùng thêm bộ nhớ liền kề để mở rộng kích thước. <br> - Không hiệu quả cho chèn và xóa phần tử ở đầu hoặc giữa vector. | - Truy cập ngẫu nhiên chậm hơn so với vector. <br> - Chiếm nhiều bộ nhớ hơn do lưu trữ các con trỏ liên kết. | - Tốn nhiều bộ nhớ hơn do lưu trữ các key-value pairs và con trỏ liên kết. <br> - Thời gian tìm kiếm và truy xuất có phức tạp. <br> - Không hỗ trợ truy cập ngẫu nhiên theo index. |
 
 
-### 10. LAMDA
+### 10. LAMDA (unfinished)
 
  - Sử dụng mà không cần biết trước, khi nào sủ dụng thì dùng đến luôn
  - Hàm bình thường thì viết toàn cục. Còn lambda viết cục bộ 
@@ -767,4 +767,49 @@ int main(int argc, char const *argv[])
 {   
    definition of method   
 }*
+
+</details>
+
+<details>
+  <summary><h1>▶ EMBEDDED</h1></summary>
+
+### 1. SPI - Serial Peripheral Interface
+
+    Giao tiếp 1 Master với 1 Slave
+    Bus SPI gồm có 4 đường tín hiệu:
+- **SCLK**: Serial Clock
+- **MOSI**: Master Out, Slave In
+- **MISO**: Master In, Slave Out
+- **SS**: Slave Select
+
+
+
+### 2. UART
+
+
+
+
+### 3. I2C
+**3.1 Introduction**
+- I2C sử dụng 2 dây tín hiệu là SDA (Serial Data Line) và SCL (Serial Clock Line). 
+- SPI có hai chân truyền, nhận nên có thể truyền nhận cùng một lúc còn I2C chỉ có 1 chân SDA nên tại 1 thời i điểm chỉ có thể truyền hoặc nhận. 
+
+![Alt text](image-7.png)
+![Alt text](image-6.png)
+
+**How I2C wworks**
+
+![Alt text](image-8.png)
+
+ Về chế độ truyền của I2C thì nó sẽ truyền theo các Messge.
+
+- Đầu tiên nó sẽ gửi Start bit, **Start bit** này là **SDA** sẽ kéo mức điện áp từ mức cao xuống mức thấp trước khi **SCL** sẽ kéo từ mức cao xuống mức thấp.
+
+- Sau đó sẽ gửi 7 hoặc 10 bit địa chỉ(**Address Frame**) kèm với 1 bit **read/write** (bit này sẽ thông báo cho slave là master đang muốn gửi dữ liệu đến slave hay muốn nhận dữ liệu từ slave).
+- Mỗi slave sẽ so sánh địa chỉ được gửi từ master với địa chỉ của chính nó. Nếu địa chỉ trùng khớp, slave sẽ trả về một bit ACK . 
+- Nếu slave đã nhận được dữ liệu thì slave sẽ trả về một bit **ACK** ở mức thấp, sau khi master đã nhận được bit **ACK(bit 0)** bằng cách kéo dòng **SDA** xuống thấp cho một bit thì nó biết là slave đã nhận đúng địa chỉ. 
+- Nếu địa chỉ từ master không khớp với địa chỉ của slave, slave rời khỏi đường SDA cao.
+- Mỗi lần master truyền một byte thì master có một khoảng **timeout** (thời gian thoát ra)cố định để đợi nhận tín hiệu **ACK**. Master sẽ liên tục đọc chân **SDA** nếu trong **timeout** mà slave không kéo chân **SDA** về mức 0. Thì chương trình sẽ truyền lại từ đầu hoặc cho dừng chương trình...
+- Tiếp theo master sẽ truyền **8 bit data**, sau đó nó sẽ đợi slave phản hồi lại bit **ACK** nếu nhận được thì nó sẽ truyền byte tiếp theo, cứ như vây nó truyền hết data mình muốn truyền đi.
+- Cuối cùng để kết thúc thì nó gửi một **Stop bit**, **Stop bit** đầu tiên nó sẽ kéo **SCL** từ mức thấp lên mức cao, sau đó **SDA** kéo từ mức thấp lên mức cao.
 
