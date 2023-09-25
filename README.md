@@ -785,9 +785,31 @@ int main(int argc, char const *argv[])
 
 
 ### 2. UART
-**3.1 Introduction**
+**2.1 Introduction**
+- UART hay bộ thu-phát không đồng bộ đa năng là một trong những hình thức giao tiếp kỹ thuật số giữa thiết bị với thiết bị đơn giản và lâu đời nhất. 
+- Nó dựa vào 1 khoảng thời gian giống nhau để truyền dữ liệu. So sánh với SPI thì UART sẽ chậm hơn và dễ lỗi hơn do không có chân xung clock.
+**2.2 How I2C wworks**
 
-**How I2C wworks**
+- **Start bit** 2 chân Tx, Rx luôn ở mức 1. Khi giao tiếp thì Tx kéo xuống 0 . Sau đó delay 1 khoảng thời gian cố định. 
+**Data Frame:** - Nó có thể dài từ 5 bit đến 8 bit nếu sử dụng bit Parity (bit chẵn lẻ). 
+- Kiểm tra bit thứ nhất. Data đó ở mức 1 thì set Tx lên 1 còn ngược lại Tx về 0. Delay 1 khoảng thời gian **baud rate** và tiếp tục thực hiện như thế. 
+- **Parity Bit** bit Parity là một cách để UART bên nhận kiểm tra dữ liệu đã thay đổi trong quá trình truyền hay không.
+    + Nếu tổng số bit 1 trong Data Frame là chẵn thì set P về 0.
+    + Nếu tổng số bit 1 trong Data Frame là lẻ thì set P lên 1. 
+
+**Stop Bit:** Để báo hiệu sự kết thúc của gói dữ liệu, UART gửi sẽ điều khiển đường truyền dữ liệu từ điện áp thấp đến điện áp cao trong ít nhất hai khoảng thời gian bit
+
+**UART2:**
+
+- Rx sẽ liên tục kiểm tra, Rx khi hạ xuống 0 thì nhận biết UART1 truyền. Sau đó delay 1 khoảng thời gian. Đọc lại chân Rx. delay 1 khoảng thời gian ở mỗi bit.
+
+- Nó dựa vào 1 khoảng thời gian giống nhau để truyền dữ liệu. So sánh với SPI thì UART sẽ chậm hơn và dễ lỗi hơn do không có chân xung clock.
+
+baud rate: số bit truyền trong 1s
+bit P: là bit 1 hoặc 0 để các bit gởi đi có tổng số bit 1 là số chẵn
+
+
+
 
 ### 3. I2C
 **3.1 Introduction**
@@ -813,3 +835,5 @@ int main(int argc, char const *argv[])
 - Tiếp theo master sẽ truyền **8 bit data**, sau đó nó sẽ đợi slave phản hồi lại bit **ACK** nếu nhận được thì nó sẽ truyền byte tiếp theo, cứ như vây nó truyền hết data mình muốn truyền đi.
 - Cuối cùng để kết thúc thì nó gửi một **Stop bit**, **Stop bit** đầu tiên nó sẽ kéo **SCL** từ mức thấp lên mức cao, sau đó **SDA** kéo từ mức thấp lên mức cao.
 
+### 4. TIMER
+**4.1**
