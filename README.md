@@ -774,6 +774,7 @@ int main(int argc, char const *argv[])
   <summary><h1>▶ EMBEDDED</h1></summary>
 
 ### 1. SPI - Serial Peripheral Interface
+**1.1 Introduction**
 
     Giao tiếp 1 Master với 1 Slave
     Bus SPI gồm có 4 đường tín hiệu:
@@ -781,15 +782,31 @@ int main(int argc, char const *argv[])
 - **MOSI**: Master Out, Slave In
 - **MISO**: Master In, Slave Out
 - **SS**: Slave Select
+ ![Alt text](image-13.png)
+**1.2 How SPI works?**
+![Alt text](image-11.png)
+- Mỗi chip Master hay Slave sẽ có một thanh ghi dữ liệu 8 bit chứa dữ liệu cần gửi đi hoặc dữ liệu nhận về.
+- Cứ mỗi xung nhịp do Master tạo ra trên chân SCLK, một bit trong thanh ghi dữ liệu của Master được truyền qua Slave trên đường MOSI, đồng thời một bit trong thanh ghi dữ liệu của Slave cũng được truyền qua cho Master trên đường MISO.
 
+**1.3 Operation Modes**
+**CPOL** - **Clock Polarity** : cực của xung clock(chế độ nhàn rỗi mức 0, 1)
+**CPHA** - **Clock Phase**: pha của clock (cạnh lên, xuống)
 
+|  **MODE** | **CPOL**  | **CPHA**  |
+|-------|-------|-------|
+|  1    |   0   |0      |
+|  2    |   0   |1      |
+|  3    |   1   |0      |
+|  4    |   1   |1      |
 
+![Alt text](image-12.png)
 ### 2. UART
 **2.1 Introduction**
+![Alt text](image-10.png)
 - UART hay bộ thu-phát không đồng bộ đa năng là một trong những hình thức giao tiếp kỹ thuật số giữa thiết bị với thiết bị đơn giản và lâu đời nhất. 
 - Nó dựa vào 1 khoảng thời gian giống nhau để truyền dữ liệu. So sánh với SPI thì UART sẽ chậm hơn và dễ lỗi hơn do không có chân xung clock.
-**2.2 How I2C wworks**
-
+**2.2 How I2C works?**
+![Alt text](image-9.png)
 - **Start bit** 2 chân Tx, Rx luôn ở mức 1. Khi giao tiếp thì Tx kéo xuống 0 . Sau đó delay 1 khoảng thời gian cố định. 
 **Data Frame:** - Nó có thể dài từ 5 bit đến 8 bit nếu sử dụng bit Parity (bit chẵn lẻ). 
 - Kiểm tra bit thứ nhất. Data đó ở mức 1 thì set Tx lên 1 còn ngược lại Tx về 0. Delay 1 khoảng thời gian **baud rate** và tiếp tục thực hiện như thế. 
@@ -807,6 +824,7 @@ int main(int argc, char const *argv[])
 
 baud rate: số bit truyền trong 1s
 bit P: là bit 1 hoặc 0 để các bit gởi đi có tổng số bit 1 là số chẵn
+
 
 
 
@@ -837,3 +855,4 @@ bit P: là bit 1 hoặc 0 để các bit gởi đi có tổng số bit 1 là s�
 
 ### 4. TIMER
 **4.1**
+
