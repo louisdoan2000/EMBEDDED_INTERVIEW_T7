@@ -853,6 +853,154 @@ bit P: là bit 1 hoặc 0 để các bit gởi đi có tổng số bit 1 là s�
 - Tiếp theo master sẽ truyền **8 bit data**, sau đó nó sẽ đợi slave phản hồi lại bit **ACK** nếu nhận được thì nó sẽ truyền byte tiếp theo, cứ như vây nó truyền hết data mình muốn truyền đi.
 - Cuối cùng để kết thúc thì nó gửi một **Stop bit**, **Stop bit** đầu tiên nó sẽ kéo **SCL** từ mức thấp lên mức cao, sau đó **SDA** kéo từ mức thấp lên mức cao.
 
-### 4. TIMER
-**4.1**
+### 4. Interupt
+
+- Chương trình ngắt là chương trình ưu tiên cao, sẽ chạy độc lập với chương trình chính. Khi có sự kiện đột xuất xảy ra thì chương trình sẽ chạy chương trình ngắt.
+- Mỗi loại ngắt có những địa chỉ của vùng ngắt. Khi ngắt xảy ra thì sẽ trỏ PC trỏ tới địa chỉ đó để chạy chương trình, những ngắt nào có số thứ tự ngắt càng thấp thì sẽ có độ ưu tiên càng cao. 
+- Các loại ngắt: 
+
++ **Ngắt reset**: con trỏ PC sẽ trỏ đến địa chỉ 0x00 và chạy lại chương trình. Giống như khi cấp nguồn 
++ **Ngắt ngoài**: 
+    - LOW: kích hoạt liên tục khi trạng thái chân digital có mức thấp
+	- HIGH: kích hoạt liên tục khi trạng thái chân digital có mức cao.
+	- RISING: kích hoạt khi trạng thái của chân digital chuyển từ mức điện áp thấp sang mức điện áp cao.
+	- FALLING: kích hoạt khi trạng thái của chân digital chuyển từ mức điện áp cao sang mức điện áp thấp.
+	 
++ **Ngắt truyền thông**: Ngắt truyền nhận dữ liệu SPI, I2C, UART.
++ **Ngắt timer**: Có 1 thanh ghi lưu giá trị đếm của timer. Cứ 1 xung thì bộ nhớ được tăng lên một lần. Thời điểm mà thanh ghi đầy thì nó bị tràn và nó sẽ kích hoạt cờ tràn. Khi thanh ghi đầy thì cờ tràn chuyển sang mức 1 và tiến hành ngắt timer. Dừng ctr chính và trỏ con trỏ PC đến địa chỉ của timer và thực hiện chương trình bên trong timer. Chương trình trong timer cứ chạy hoài như thế, để thoát chương trình thì cần ctr reset thanh ghi.
+
+![Alt text](image-14.png)
+
+### 5. TIMER
+- Bộ đếm/Bộ định thời: Đây là các ngoại vi được thiết kế để thực hiện một nhiệm vụ đơn giản: đếm các xung nhịp. Mỗi khi có thêm một xung nhịp tại đầu vào đếm thì giá trị của bộ đếm sẽ được tăng lên 01 đơn vị (trong chế độ đếm tiến/đếm lên) hay giảm đi 01 đơn vị (trong chế độ đếm lùi/đếm xuống). Xung nhịp đưa vào đếm có thể là một trong hai loại:
+
+  + Xung nhịp bên trong IC: Đó là xung nhịp được tạo ra nhờ kết hợp mạch dao động bên trong IC và các linh kiện phụ bên ngoài nối với IC. Trong trường hợp sử dụng xung nhịp loại này, người ta gọi là các bộ định thời (timers). Do xung nhịp bên loại  này thường đều đặn nên ta có thể dùng để đếm thời gian một cách khá chính xác.
+
+  + Xung nhịp bên ngoài IC: Đó là các tín hiệu logic thay đổi liên tục giữa 02 mức 0- 1 và không nhất thiết phải là đều đặn. Trong trường hợp này người ta gọi là các bộ 
+đếm (counters). Ứng dụng phổ biến của các bộ đếm là đếm các sự kiện bên ngoài như đếm các sản phầm chạy trên băng chuyền, đếm xe ra/vào kho bãi…Một khái niệm quan trọng cần phải nói đến là sự kiện “tràn” (overflow). Nó được hiểu là sự kiện bộ đếm đếm vượt quá giá trị tối đa mà nó có thể biểu diễn và 
+quay trở về giá trị 0. Với bộ đếm 8 bit, giá trị tối đa là 255 (tương đương với FF trong hệ Hexa) và là 65535 (FFFFH) với bộ đếm 16 bit.
+
+### 6. CAN 
+- CAN là hình thức giao tiếp có 2 dây CAN high, CAN low
+- Có 2 dạng truyền: CAN low speed, CAN high speed
+  
+| Thông số | CAN low speed | CAN high speed |
+|---|:---:|:---:|
+|Tốc độ|125 kb/s|125 kb/s tới 1 Mb/s|
+|Số nút trên bus|2 tới 20|2 tới 30|
+|Trạng thái dominant|CAN_H = 4V; CAN_L = 1V|CAN_H = 3.25V; CAN_L = 1.5V|
+|Trạng thái recessive|CAN_H = 1.75V; CAN_L = 3.25V|CAN_H = 2.5V; CAN_L = 2.5V|
+|Tính chất của cap|30pF giữa cáp và dây|2*120 ohm|
+|Mức điện áp cung cấp|5V|5V|
+
+- Trong CAN 2 dây CAN High và CAN Low xoắn chéo dây lại để giúp cho việc truyền đi xa được và không bị nhiễu. 
+
+- Làm sao để biết CAN nào đang truyền và CAN nào đang nhận?
+Ex:
+    CAN 1: 001 010
+    CAN 2: 010 010
+    CAN 3: 001 001
+
+- Trong CAN có cơ chế, CAN nào đang truyền data thì CAN còn lại nhận data. Tức là tại 1 thời điểm chỉ có 1 node được truyền và các node khác nhận.
+
+- Giả sử 3 CAN trên cùng truyền 1 lúc. Tại bit 1 CAN 1 gửi bit 0 thì CAN_H 4V, CAN_L 1V. Thì nó cũng sẽ nhận lại 4V và 1V. CAN 2, 3 cũng gửi như thế nên CAN 1 gửi ra bit 0 và cũng nhận lại bit 0. Do đó tại thời điểm CAN 1 gửi data chỉ có 1 mình nó đang truyền. 
+- Tại bit 2, CAN 1 gửi ra 4V & 1V, CAN 2 gửi ra 3.25V & 1.75V. Lúc này CAN 1 không nhận lại 4V & 1V nữa. CAN 2 cũng như thế (cũng không nhận lại 3.25V & 1V) *****
+- Theo cơ chế CAN, thì bit thấp được ưu tiên nên CAN 2 dừng truyền data vào chế độ nhận. Cứ tương tự như thế
+- Tại bit 5 thì CAN vào chế độ nhận, còn CAN 3 "tháng" CAN 1 và 2
+
+* **Explantion**: 4V      1V  -> chênh lệch 3V    (>= 3V bit 0)
+                1.75V   3.25V -> chênh lệch 1.5V  (>= 1.5V bit 0)
+        -> Nhận lại điện áp cao hơn: 4V - 3.25V -> chênh lệch 0.75V -> bit 1. Nghĩa là gửi ra bit 0 nhưng nhận lại bit 1
+
+**6.2 CAN 2.0**
+
+![Alt text](image-15.png)
+
+
+Data Frame CAN (Phiên bản 2.0A) tiêu chuẩn bao gồm bảy trường bit khác nhau:
+**1. Trường bắt đầu khung (Start Of Frame Field – SOF)** 
+ Với cả 2 định dạng của chuẩn CAN 2.0 thì trường bắt đầu là vị trí của bit đầu tiên trong khung. Trường này chiếm 1 bit dữ liệu. Bit đầu tiên này là một Dominant Bit (mức logic 0) đánh dấu sự bắt đầu của một Data Frame.
+
+**2. Trường xác định quyền ưu tiên (Arbitration Field)**
+
+- Định dạng vùng xác định quyền ưu tiên là khác nhau đối với dạng khung chuẩn và khung mở rộng.
+
+- Định dạng chuẩn: vùng xác định quyền ưu tiên có độ dài 12 bit, bao gồm 11 bit ID và 1 bit RTR.
+
+- Định dạng mở rộng: trường xác định quyền ưu tiên có độ dài 32 bit, bao gồm có 29 bit ID, 1 bit SRR, 1 bit IDE và 1 bit RTR
+
+Trong đó:
+
+Bit RTR (Remote Transmission Request)
+
+Là bit dùng để phân biệt khung là Data Frame hay Remote Frame.
+Nếu là Data Frame, bit này luôn bằng 0 (Dominant Bit).
+Nếu là Remote Frame, bit này luôn bằng 1 (Recessive Bit).
+Vị trí bit này luôn nằm sau bit ID.
+Trường hợp nếu Data Frame và Remote Frame có cùng ID được gửi đi đồng thời thì Data Frame sẽ được ưu tiên hơn.
+
+Bit SRR (Substitute Remote Request)
+
+Bit này chỉ có ở khung mở rộng.
+Bit này có giá trị là 1 (Recessive Bit).
+So với vị trí tương ứng trong khung chuẩn thì bit này trùng với vị trí của bit RTR nên còn được gọi là bit thay thế (Substitute).
+Giả sử có hai Node cùng truyền, một Node truyền Data Frame chuẩn, một Node truyền Data Frame mở rộng có ID giống nhau thì Node truyền khung chuẩn sẽ thắng phân xử quyền ưu tiên vì đến vị trí sau ID, khung chuẩn là bit RTR = 0, còn khung mở rộng là bit SRR = 1. Như vậy, khung chuẩn chiếm ưu thế hơn so với khung mở rộng khi có ID như nhau.
+
+Bit IDE (Identifier Extension)
+
+Đây là bit phân biệt giữa loại khung chuẩn và khung mở rộng: IDE = 0 quy định khung chuẩn, IDE = 1 quy định khung mở rộng.
+Bit này nằm ở trường xác định quyền ưu tiên với khung mở rộng và ở trường điều khiển với khung chuẩn.
+**3. Trường điều khiển (Control Field)**
+
+- Khung chuẩn và khung mở rộng có định dạng khác nhau ở trường này:
+- Khung chuẩn gồm IDE, r0 và DLC (Data Length Code).
+- Khung mở rộng gồm r1, r0 và DLC.
+Trong đó:
+Bit IDE
+Dùng phân biệt loại khung (đã được trình bày ở trên).
+Bit r0, r1 (hai bit dự trữ)
+Tuy hai bit này phải được truyền là Recessive Bit bởi bộ truyền nhưng bộ nhận không quan tâm đến giá trị 2 bit này. Bộ nhận có thể nhận được các tổ hợp 00, 01, 10 hoặc 11 của r1 và r0 nhưng không coi đó là lỗi mà bỏ qua và nhận thông điệp bình thường.
+DLC (Data Length Code)
+Có độ dài 4 bit quy định số byte của trường dữ liệu của Data Frame
+Chỉ được mang giá trị từ 0 đến 8 tương ứng với trường dữ liệu có từ 0 đến 8 byte dữ liệu. Data Frame có thể không có byte dữ liệu nào khi DLC = 0.
+Giá trị lớn hơn 8 không được phép sử dụng. Hình dưới mô tả các loại mã bit mà DLC có thể chứa để quy định số byte của trường dữ liệu.
+**4. Trường dữ liệu (Data Field)**
+
+- Trường này có độ dài từ 0 đến 8 byte tùy vào giá trị của DLC ở trường điều khiển.
+**5. Trường kiểm tra (Cyclic Redundancy Check Field – CRC)**
+
+- Trường kiểm tra hay trường CRC gồm 16 bit và được chia làm hai phần là:
++ CRC Sequence: gồm 15 bit CRC tuần tự
++ CRC Delimiter: là một Recessive Bit làm nhiệm vụ phân cách trường CRC với trường ACK
+Mã kiểm tra CRC phù hợp nhất cho các khung mà chuỗi bit được kiểm tra có chiều dài dưới 127 bit, mã này thích hợp cho việc phát hiện các trường hợp sai nhóm (Bus Error). Ở đây, tổng bit từ trường bắt đầu (SOF) đến trường dữ liệu (Data Field) tối đa là 83 bit (khung định dạng chuẩn) và 103 bit (khung định dạng mở rộng).=> Trường CRC bảo vệ thông tin trong Data Frame và Remote Frame bằng cách thêm các bit kiểm tra dự phòng ở đầu khung truyền. Ở đầu khung nhận, cũng sẽ tính toán CRC như bộ truyền khi đã nhận dữ liệu và so sánh kết quả đó với CRC Sequence mà nó đã nhận được, nếu khác nhau tức là đã có lỗi, nếu giống nhau tức là đã nhận đúng từ trường SOF đến trường dữ liệu.
+**6. Trường báo nhận (Acknowledge Field – ACK)**
+
+- Trường báo nhận hay trường ACK có độ dài 2 bit và bao gồm hai phần là ACK Slot và ACK Delimiter.
+- ACK Slot: có độ dài 1 bit, một Node truyền dữ liệu sẽ thiết lập bit này là Recessive. Khi một hoặc nhiều Node nhận chính xác giá trị thông điệp (không có lỗi và đã so sánh CRC Sequence trùng khớp) thì nó sẽ báo lại cho bộ truyền bằng cách truyền ra một Dominant Bit ngay vị trí ACK Slot để ghi đè lên Recessive Bit của bộ truyền.
+- ACK Delimiter: có độ dài 1 bit, nó luôn là một Recessive Bit. Như vậy, ta thấy rằng ACK Slot luôn được đặt giữa hai Recessive Bit là CRC Delimiter và ACK Delimiter.
+**7. Trường kết thúc (End Of Frame Field – EOF)**
+
+- Trường EOF là trường thông báo kết thúc một Data Frame hay Remote Frame.
+- Trường này gồm 7 Recessive Bit.
+
+**Summary:**
+DLC: Data length control  gồm 4 bit nhị phân để đại diện cho 8 
+
+- SOF: 1 dominant bit 
+- Arbitration field: 11 bit ID
+- 1 bit RTR: 
+	+ 0: data frame: gửi thông tin
+	+ 1: remote frame: gửi yêu cầu gửi thông tin 
+- DLC: 4 bit(để đại diện cho data field)
+- data(0-8)
+Ex: data 2 bytes -> DLC: 0010
+    data 8 bytes -? DLC: 1000
+	
+* remote frame thì DLC, data đều bằng 0;
+
+- CRC field: 15 bits checksum
+- delimiter: bit đệm = 0 
+- ACK: để xem truyền thành công hay không 
+- bit đệm = 0
+- EOF: 7 bit 
 
