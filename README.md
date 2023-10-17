@@ -621,7 +621,7 @@ E.g: Như máy giặc ta chỉ cần bỏ đồ vào và bấm nút còn bên tr
 	- ***swap():*** Hàm được sử dụng để hoán đổi nội dung của một vector này với một vector khác cùng kiểu. Kích thước có thể khác nhau.
 	- ***clear():*** Hàm được sử dụng để loại bỏ tất cả các phần tử của vùng chứa vector.
 
-```c++
+```c
 	//dùng thư viện vector giống cấp phát bộ nhớ động trong c, nhưng có thư viện hỗ trợ các công cụ nhanh hơn.
 	#include <vector>
 	
@@ -644,7 +644,7 @@ E.g: Như máy giặc ta chỉ cần bỏ đồ vào và bấm nút còn bên tr
 	for(int i =0;i<array;i++){
 		printf("%d\n",array[i]);
 	}
-	```
+```
 
 ### 4. TEMPLATE
 
